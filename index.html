@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CV Marungsha</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+	 <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet">
+	 <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+	 <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+	 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	 <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+</head>
+
+ 
+<body>
+<div id="app" spellcheck="false">
+	<div class="a4">
+		<v-container class="grey lighten-5">
+    <v-row no-gutters>
+      <v-col
+        cols="4"
+      >
+        <v-card
+          class="pa-2 gradient-card"
+          dark
+          tile
+		  shaped
+		  contenteditable="true"
+        >
+          <v-card-title class="pb-2">
+          	<h2 class="display-3 font-weight-regular text-primary">{{name}}</h2>	
+          </v-card-title>
+          <v-card-text >
+          	
+          	<h3 class="display-1 pb-1">Contact</h3>
+          	<v-divider></v-divider>	
+          	<div class="pl-2">
+          		<h4 class="sub-title-1 pt-1">Current Address</h4>
+	          	<p class="body-1" v-html="contact.address"></p>
+
+				<h4 class="sub-title-1 pt-1">Phone</h4>
+	          	<p class="body-1">{{contact.phone}}</p>
+
+	          	<h4 class="sub-title-1 pt-1">Email</h4>
+	          	<p class="body-1">{{contact.email}}</p>
+	
+          	</div>
+          	
+
+			<h3 class="display-1 pb-1 pt-2">Skill Highlights</h3>
+          	<v-divider></v-divider>	
+          	<ul class="pl-2 pt-1"> 
+          		<li v-for="(sh,ind) in skillHighlights" :key="ind">{{sh}}</li>
+          	</ul>
+
+          	<h3 class="display-1 pb-1 pt-2">Technical Proficiency</h3>
+          	<v-divider></v-divider>	
+          	<ul class="pl-2 pt-1"> 
+          		<li v-for="(prog,ind) in programming" :key="ind">
+  				    <v-row no-gutters>
+				      <v-col cols="6" ><span v-html="prog.name"></span></v-col>
+				      <v-col cols="6" class="rating-class" >
+				      	 <!-- <v-rating v-model="prog.level" :dense="true" small readonly 
+				      	 :empty-icon="emptyIcon"
+				      	 :full-icon="fullIcon"
+				      	/> -->
+				      	<template v-for="i in 5" :key="i">
+				      		<v-icon :size="15" :color="i>prog.level?'rating-dim':''">stop</v-icon>
+				      	</template>
+				      	<!-- <template v-for="i in 5-prog.level" :key="i">
+				      		<v-icon>stop</v-icon>
+				      	</template> -->
+				      	</v-col> 
+				    </v-row>
+
+          			<!-- {{prog.name}} <v-rating v-model="prog.level"></v-rating></li> -->
+          	</ul>
+
+
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col
+        cols="8"
+      >
+        <v-card
+          :elevation="0"
+          class="pa-2 pl-2"
+          flat
+          tile
+        >
+          <v-card-text contenteditable="true">
+
+          <h2 class="display-2 pb-1">Summary</h2>
+          <v-divider></v-divider>	
+          <p class="body-1 pt-1" >{{summary}}</p>	
+
+          <h2 class="display-2 pb-1 pt-1">Experience</h2>
+          <v-divider></v-divider>	
+          <template v-for="exp in experience">
+	          <p class="body-1 pt-1" >
+	          	<b><em>
+	          		{{exp.title}}, {{exp.from}} to {{exp.to}}
+	          	<br>
+	          		{{exp.company}}, {{exp.location}}
+	          	</em>
+	          	</b>
+	          </p>	
+	          <ul class="pt-1 pl-2">
+	          	<li v-for="(keyHighLight, index) in exp.keyHighLights" :key="index" v-html="keyHighLight"></li>
+	          </ul>
+          </template>
+
+          <h2 class="display-2 pb-1 pt-1">Education</h2>
+          <v-divider></v-divider>	
+          <template v-for="(ed, ind) in education">
+	          <p class="body-1 pt-1">
+	          	<b>{{ed.course}}:</b> {{ed.specialization?ed.specialization+', ':''}}{{ed.institute}} - {{ed.graduationYear}}
+	          	<br>
+	          	<!-- <b>Relevant Courses:</b> {{ed.relevantCourses.join(', ')}} -->
+	          	<!-- <br> -->
+	          	<b>Project: </b>
+          			<ul class="pl-2" v-if="ed.extraCurricular">
+          				<li v-for="(ec, ind) in ed.extraCurricular" v-html="ec"></li>
+					</ul>
+	          </p>	
+          </template>
+        	</v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
+	</div>
+
+</div>
+<style type="text/css">
+.a4{
+	width: 1200px;
+	height: auto;
+	margin: 0 auto
+}
+.pb-2{
+	padding-bottom: 2em;
+}
+
+.pb-4{
+	padding-bottom: 4em;
+}
+.pb-1{
+	padding-bottom: 1em;
+}
+
+.pb-3{
+	padding-bottom: 3em;
+}
+.pt-1{
+	padding-top: 1em
+}
+.pt-2{
+	padding-top: 2em
+}
+.pl-2{
+	padding-left: 2em
+}
+.gradient-card{
+	background: linear-gradient(45deg, #1976D2, #8E24AA);
+}
+.v-rating{
+	float: right;
+}
+.rating-dim--text{
+	opacity: 0.3
+}
+.rating-class{
+	display: flex;
+	justify-content: flex-end;
+}
+@media print{
+	.a4{
+		margin: 0
+	}
+}
+</style>
+<script type="text/javascript">
+const app = new Vue({
+	el: '#app',
+	vuetify: new Vuetify(),
+	data: {
+		name: 'Marungsha Brahma',
+		contact: {
+			address: 'H No. 22, Village - Dotma <br> District - Kokrajhar, Assam, 783347',
+			phone: '+91-7637075620',
+			email: 'marungsha@gmail.com'
+		},
+		experience: [
+			
+			{
+				title: 'Full Stack Developer',
+				from: '02/2019',
+				to: '02/2020',
+				company: 'ThinkMerit',
+				location: 'Ranchi',
+				keyHighLights: [
+					`Develop secure, responsive and user friendly Web and Android App`, 
+					`Develop LMS integrated Admin Panel to manage all content resources effectively`,
+					`Develop advanced B2B version of existing Test Portal with Proctoring capability`,
+					`Manage and guide team of Interns`
+				]
+			},
+			{
+				title: 'Senior Software Developer',
+				from: '05/2016',
+				to: '02/2017',
+				company: 'Lookplex',
+				location: 'Secotor 63, Noida',
+				keyHighLights: [
+					`Develop responsive and user friendly custom ERP for management of various data or task`,
+					`Migrate partner app from react-native to Kotlin for higher performance and stability`,
+					`Improve existing customer web app and customer android app.`,
+					`Collect more analytical user data to help marketing team have better insight`
+				]
+			}
+		],
+		summary: 'Senior Software Developer with 2 years of experience in front end development. Experienced with all stages of the development cycle for dynamic Web and Android app. I have large share of experience in startup ecosystem developing products end to end from ground up.',
+		education: [
+			{
+				institute: 'IIT ISM Dhanbad',
+				course: 'Bachelor of Technology',
+				specialization: '',
+				graduationYear: '2016',
+				location: '',
+				relevantCourses: ['C', 'C++', 'Data Structures and Algorithm'],
+				extraCurricular: [
+					`Developed android app and web app for College Techno Management Festival Concetto in the <br> year 2013 and 2014 respectively`, 
+					`Developed web app for Annual Sports Festival Parakram in the year 2015`
+				]
+			},
+			{
+				institute: 'IIT Guwahati',
+				course: 'Master of Technology',
+				specialization: '',
+				graduationYear: '2017',
+				location: '',
+				relevantCourses: ['C', 'C++', 'Data Structures and Algorithm'],
+				extraCurricular: [
+					`Developed Gantt Chart visualizer for scheduling tasks in MATLAB`, 
+					`Recreated more compact and generalized model for Single Level Production Planning Problem`,
+					`Extended single objective Tree Growth Algorithm and Mouth Brooding Fish algorithms to multi objective optimization algorithm`,
+					`Worked as Teaching Assistant for Computer Aided Numerical Methods Course`
+				],
+				
+			}
+		],
+		skillHighlights: [
+			`Project management`,
+			`Strong decision maker`,
+			`Team player`,
+			`Quick learner`,
+			`Result and performance oriented`,
+		],
+		programming: [
+			{name: 'Laravel', level: 4}, 
+			{name: 'Vue', level: 4}, 
+			{name: 'React', level: 3},
+			{name: 'jQuery', level: 4}, 
+			{name: 'Express', level: 3},
+			{name: 'Restify', level: 4},
+			{name: 'MySQL', level: 4},
+			{name: 'MongoDB', level: 3},
+			{name: 'Android(Kotlin)', level: 3},
+			{name: 'React-Native', level: 3},
+			{name: 'Ansible', level: 2}
+		],
+		emptyIcon: 'crop_square',
+		fullIcon: 'stop',
+		halfIcon: 'stop'
+	}
+})
+</script>
+</body>
+</html>
